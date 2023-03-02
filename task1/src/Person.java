@@ -1,5 +1,4 @@
-import java.util.Objects;
-import java.util.OptionalInt;
+import java.util.*;
 
 public class Person {
 
@@ -7,22 +6,20 @@ public class Person {
 
     protected final String surname;
 
-    protected OptionalInt age;
+    private OptionalInt age = OptionalInt.empty();
 
-    protected String address;
-
-    private boolean hasAge = false;
+    private String address;
 
     public Person(String name, String surname) {
         this.name = name;
         this.surname = surname;
+
     }
 
 
     public Person(String name, String surname, int age) {
         this(name, surname);
         this.age = OptionalInt.of(age);
-        hasAge = true;
     }
 
     public Person(String name, String surname, int age, String address) {
@@ -30,8 +27,8 @@ public class Person {
         this.address = address;
     }
 
-    public boolean hasAge() {
-        return hasAge;
+    public boolean hasAge(){
+        return age.isPresent();
     }
 
     public boolean hasAddress() {
@@ -59,7 +56,7 @@ public class Person {
     }
 
     public void happyBirthday() {
-
+        if (age.isPresent())
         this.age = OptionalInt.of(age.getAsInt() + 1);
     }
 
@@ -67,6 +64,7 @@ public class Person {
         PersonBuilder child = new PersonBuilder();
         child.setSurname(this.surname);
         child.setAddress(this.address);
+        child.setAge(0);
         return child;
     }
 
@@ -74,10 +72,10 @@ public class Person {
     public String toString() {
         return name;
     }
-
+//
 //    public String toString(){
 //        StringBuilder s = new StringBuilder("Имя: " + name + " Фамилия: " + surname);
-//        if (hasAge) s.append(" Возраст: " + age.getAsInt() + " лет");
+//        if (hasAge()) s.append(" Возраст: " + age.getAsInt() + " лет");
 //        if (hasAddress()) s.append(" Адресс: " + address);
 //        return String.valueOf(s);
 //    }

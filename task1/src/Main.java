@@ -12,7 +12,6 @@ public class Main {
                 .setName("Антошка")
                 .build();
         System.out.println("У " + mom + " есть сын, " + son);
-
         try {
             // Не хватает обяхательных полей
             new PersonBuilder().build();
